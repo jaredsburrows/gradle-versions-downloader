@@ -2,9 +2,12 @@ language: android
 
 jdk: oraclejdk8
 
-install: true
+matrix:
+  include:
+    - dist: trusty
+      jdk: oraclejdk8
 
-before_script:
+install:
   # Download SDK
   - yes | sdkmanager "tools" &>/dev/null
   - yes | sdkmanager "platform-tools" &>/dev/null
@@ -26,4 +29,3 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
     - $HOME/.android/build-cache
-
