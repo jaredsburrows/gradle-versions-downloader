@@ -6,15 +6,11 @@ git clone https://github.com/jaredsburrows/android-gif-example &>/dev/null
 cd android-gif-example
 
 # Download list of the versions of Gradle
-array=( $(curl -s https://services.gradle.org/versions/all | awk -F'"' '$2=="version"{print $4}') )
+versions=( $(curl -s https://services.gradle.org/versions/all | awk -F'"' '$2=="version"{print $4}' | grep -isE ^[0-9].[0-9]$ | head -n 10) )
 
-# Download the last 10 Release and Release candidates
-start=2
-end=25
-for i in $(seq $start $end)
+# Download the last 10 releases
+for version in "${versions[@]}"
 do
-  start=$i
-  version=${array[$i]}
   echo "Downloading Gradle $version"
 
   # Download both "bin" and "all" versions
@@ -34,10 +30,9 @@ done
 rm -rf android-gif-example
 cd ..
 
-# Download the last 10 Release and Release candidates
-for i in $(seq $start $end)
+# Download the last 10 releases
+for version in "${versions[@]}"
 do
-  version=${array[$i]}
   echo "Downloading Gradle $version"
 
   # Download both "bin" and "all" versions
