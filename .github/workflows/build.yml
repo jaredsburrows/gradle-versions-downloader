@@ -1,0 +1,18 @@
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v2
+
+      - name: Run Build
+        run: ./versions-downloader.sh
+
