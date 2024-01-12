@@ -1,6 +1,11 @@
 name: build
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [ opened, labeled, unlabeled, synchronize ]
 
 jobs:
   linux:
@@ -11,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.1
 
       - name: Run Build
         run: ./versions-downloader.sh
